@@ -14,11 +14,16 @@ const ReservePage: React.FC = () => {
   // Memoize selectedDates to avoid unnecessary rerenders
   // Also possible like this 
   //const selectedDates = useAppSelector((state) => state.dates);
-  
   const selectedDates = useAppSelector(chosenDates);
   const parsedDates = useMemo(() => selectedDates.map((dateStr) => new Date(dateStr)), [selectedDates]);
 
-  const handleDateChange = () => {
+  // Handler function to wrap both actions (logging and setting selected date)
+  const handleDateChange = (date: Date | null) => {
+    console.log("traki");      // Log "traki"
+    setSelectedDate(date);    // Set the selected date
+  };
+
+  const handleSubmit = () => {
     if (selectedDate) {
       const state = store.getState();
       console.log(state); // Log the dates slice of the state
@@ -51,7 +56,7 @@ const ReservePage: React.FC = () => {
         <DatePicker
           id="reservationDate"
           selected={selectedDate}
-          onChange={setSelectedDate} // Update the selected date when the user picks a date
+          onChange={handleDateChange} // Call the handler on date change
           className="border p-2 rounded-lg w-full"
           minDate={new Date()}
           excludeDates={parsedDates} // Disable already selected dates
@@ -69,7 +74,7 @@ const ReservePage: React.FC = () => {
           </div>
         )}
       </div>
-      <button className="my-8" onClick={handleDateChange}>
+      <button className="my-8" onClick={handleSubmit}>
         Submit
       </button>
     </div>
