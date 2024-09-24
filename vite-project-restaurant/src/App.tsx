@@ -7,8 +7,8 @@ function App() {
 
   return (
     <>
-      <div>
-        Davai wavida
+      <div className="text-4xl font-bold text-blue-600">
+        Es appia
       </div>
     </>
   )
